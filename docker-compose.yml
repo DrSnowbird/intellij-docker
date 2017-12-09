@@ -1,0 +1,16 @@
+version: '3' 
+services:
+  docker-nebteans:
+    image: openkbs/intellij-docker
+    build:
+      context: ./Dockerfile
+    container_name: docker-intellij-docker
+    environment:
+      - USER_ID=${USER_ID:-1000}
+      - GROUP_ID=${GROUP_ID:-1000}
+    env_file:
+      - ./docker.env
+    volumes:
+      - ./.idea-IC-172.1:/home/developer/.idea-IC-172.1
+      - ./workspace:/home/developer/workspace
+
