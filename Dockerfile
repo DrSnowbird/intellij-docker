@@ -78,16 +78,16 @@ ENV INTELLIJ_IDE_TAR=${INTELLIJ_VERSION}-no-jdk.tar.gz
 ENV INTELLIJ_IDE_DOWNLOAD_FOLDER=idea
 
 ## -- (Release build) --
-#RUN wget -c https://download.jetbrains.com/${INTELLIJ_IDE_DOWNLOAD_FOLDER}/${INTELLIJ_IDE_TAR} && \
-#    tar xvf ${INTELLIJ_IDE_TAR} && \
-#    mv idea-IC-* ${IDEA_INSTALL_DIR}  && \
-#    rm ${INTELLIJ_IDE_TAR}
-
-## -- (Local build) --
-COPY ${INTELLIJ_IDE_TAR} ./
-RUN tar xvf ${INTELLIJ_IDE_TAR} && \
+RUN wget -c https://download.jetbrains.com/${INTELLIJ_IDE_DOWNLOAD_FOLDER}/${INTELLIJ_IDE_TAR} && \
+    tar xvf ${INTELLIJ_IDE_TAR} && \
     mv idea-IC-* ${IDEA_INSTALL_DIR}  && \
     rm ${INTELLIJ_IDE_TAR}
+
+## -- (Local build) --
+#COPY ${INTELLIJ_IDE_TAR} ./
+#RUN tar xvf ${INTELLIJ_IDE_TAR} && \
+#    mv idea-IC-* ${IDEA_INSTALL_DIR}  && \
+#    rm ${INTELLIJ_IDE_TAR}
 
 RUN mkdir -p \
     ${HOME}/${IDEA_PROJECT_DIR} \
