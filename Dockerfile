@@ -12,33 +12,28 @@ ENV INTELLIJ_VERSION=${INTELLIJ_VERSION}
 
 ENV IDEA_PRODUCT_NAME="IdeaIC2017"
 ENV IDEA_PRODUCT_VERSION="3"
-ENV IDEA_DEFAULT_CACHE_FOLDER=".${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
-ENV INTELLIJ_INSTALL_FOLDER="${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
 
-
-#Scala 2.12.3 with Scala 2.11.11 and Scala 2.10.6
-#Zinc 1.0.0
-#Scala Worksheet 0.7.0
-#ScalaTest 2.10.0.v-4-2_12
-#Scala Refactoring 0.13.0
-#Scala Search 0.6.0
+ENV IDEA_INSTALL_DIR="${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
+ENV IDEA_CONFIG_DIR=".${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
+ENV IDEA_PROJECT_DIR="IdeaProjects"
 
 ENV SCALA_VERSION=2.12.4
 ENV SBT_VERSION=1.0.4
 
-## ---- USER_NAME is defined in parent image: openkbs/jre-mvn-py3-x11 already ----
+## ---- USER_NAME is defined in parent image: 
+## ---- openkbs/jre-mvn-py3-x11 already ----
 ENV USER_NAME=${USER_NAME:-developer}
 ENV HOME=/home/${USER_NAME}
     
-############################
-#### ---- Install Scala ----
-############################
-#### Piping curl directly in tar
+#########################################################
+#### ---- Install Scala (included in Intellj already)----
+#########################################################
+#### ---- Universal tar.gz to install ----
 # ENV SCALA_INSTALL_BASE=/usr/local
 # WORKDIR ${SCALA_INSTALL_BASE}
 # # https://downloads.lightbend.com/scala/2.12.3/scala-2.12.3.tgz
-# # RUN wget -c https://downloads.lightbend.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz && \
-# RUN wget -c https://downloads.lightbend.com/scala/2.12.3/scala-2.12.3.tgz && \
+# # RUN wget -c https://downloads.lightbend.com/scala/2.12.3/scala-2.12.3.tgz && \
+# RUN wget -c https://downloads.lightbend.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz && \
 #     tar xvf scala-${SCALA_VERSION}.tgz && \
 #     rm scala-${SCALA_VERSION}.tgz && \
 #     ls /usr/local && \
@@ -48,6 +43,7 @@ ENV HOME=/home/${USER_NAME}
 #     echo "export PATH=${SCALA_INSTALL_BASE}/scala-${SCALA_VERSION}/bin:$PATH" >> /etc/profile.d/scala.sh && \
 #     echo "export CLASSPATH=\${SCALA_HOME}/lib:\$CLASSPATH" >> /etc/profile.d/scala.sh
 
+#### ---- Debian package to install ----
 #ENV SCALA_INSTALL_BASE=/usr/lib
 #WORKDIR ${SCALA_INSTALL_BASE}
 #RUN wget -c https://downloads.lightbend.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.deb && \
@@ -71,30 +67,35 @@ ENV HOME=/home/${USER_NAME}
 #     apt-get update && \
 #     apt-get install -y sbt
     
-WORKDIR ${HOME}
 #########################################################
 #### ---- Install IntelliJ IDE : MODIFY two lines below ----
 #########################################################
+
+WORKDIR ${HOME}
 
 # https://download.jetbrains.com/idea/ideaIC-2017.3-no-jdk.tar.gz
 ENV INTELLIJ_IDE_TAR=${INTELLIJ_VERSION}-no-jdk.tar.gz
 ENV INTELLIJ_IDE_DOWNLOAD_FOLDER=idea
 
 ## -- (Release build) --
-RUN wget -c https://download.jetbrains.com/${INTELLIJ_IDE_DOWNLOAD_FOLDER}/${INTELLIJ_IDE_TAR} && \
-    tar xvf ${INTELLIJ_IDE_TAR} && \
-    mv idea-IC-* ${INTELLIJ_INSTALL_FOLDER}  && \
-    rm ${INTELLIJ_IDE_TAR}
-
-## -- (Local build) --
-# COPY ${INTELLIJ_IDE_TAR} ./
-# RUN tar xvf ${INTELLIJ_IDE_TAR} && \
-#     mv idea-IC-* ${INTELLIJ_INSTALL_FOLDER}  && \
+#RUN wget -c https://download.jetbrains.com/${INTELLIJ_IDE_DOWNLOAD_FOLDER}/${INTELLIJ_IDE_TAR} && \
+#    tar xvf ${INTELLIJ_IDE_TAR} && \
+#    mv idea-IC-* ${IDEA_INSTALL_DIR}  && \
 #    rm ${INTELLIJ_IDE_TAR}
 
-RUN mkdir -p ${HOME}/workspace
-#VOLUME ${HOME}/workspace
+## -- (Local build) --
+COPY ${INTELLIJ_IDE_TAR} ./
+RUN tar xvf ${INTELLIJ_IDE_TAR} && \
+    mv idea-IC-* ${IDEA_INSTALL_DIR}  && \
+    rm ${INTELLIJ_IDE_TAR}
+
+RUN mkdir -p \
+    ${HOME}/${IDEA_PROJECT_DIR} \
+    ${HOME}/${IDEA_CONFIG_DIR}
+    
+VOLUME ${HOME}/${IDEA_PROJECT_DIR}
+VOLUME ${HOME}/${IDEA_CONFIG_DIR}
     
 USER ${USER_NAME}
 
-CMD "${HOME}/${INTELLIJ_INSTALL_FOLDER}/bin/idea.sh"
+CMD "${HOME}/${IDEA_INSTALL_DIR}/bin/idea.sh"

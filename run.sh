@@ -1,65 +1,73 @@
 #!/bin/bash -x
 
-if [ $# -lt 1 ]; then
-    echo "Usage: "
-    echo "  ${0} <image_tag>"
-fi
-
-## -- mostly, don't change this --
-baseDataFolder=~/data-docker
+###################################################
+#### **** Container package information ****
+###################################################
 MY_IP=`ip route get 1|awk '{print$NF;exit;}'`
+DOCKER_IMAGE_REPO="$(basename `pwd`)"
+imageTag=${1:-"openkbs/${DOCKER_IMAGE_REPO}"}
+#PACKAGE=`echo ${imageTag##*/}|tr "/\-: " "_"`
+PACKAGE="${imageTag##*/}"
+baseDataFolder="$HOME/data-docker"
 
-function displayPortainerURL() {
-    port=${1}
-    echo "... Go to: http://${MY_IP}:${port}"
-    #firefox http://${MY_IP}:${port} &
-    if [ "`which google-chrome`" != "" ]; then 
-        /usr/bin/google-chrome http://${MY_IP}:${port} &
-    else
-        firefox http://${MY_IP}:${port} &
-    fi
+###################################################
+#### ---- Mandatory: Change those ----
+###################################################
+IDEA_PRODUCT_NAME="IdeaIC2017"
+IDEA_PRODUCT_VERSION="3"
+IDEA_INSTALL_DIR="${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
+IDEA_CONFIG_DIR=".${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
+IDEA_PROJECT_DIR="IdeaProjects"
+
+###################################################
+#### ---- Volumes to be mapped (change this!) -----
+###################################################
+VOLUMES="${IDEA_CONFIG_DIR} ${IDEA_PROJECT_DIR}"
+
+#################################################################################################################
+################################# DON'T CHANGE BELOW (unless you need to) #######################################
+#################################################################################################################
+LOCAL_VOLUME_DIR="${baseDataFolder}/${PACKAGE}"
+DOCKER_VOLUME_DIR="/home/developer"
+
+###################################################
+#### ---- Function: Generate volume mappings  ----
+####      (Don't change!)
+###################################################
+VOLUME_MAP=""
+#### Input: VOLUMES - list of volumes to be mapped
+function generateVolumeMapping() {
+    for vol in $VOLUMES; do
+        echo "$vol"
+        if [[ $vol == "/"* ]]; then
+            # -- non-default /home/developer path; then use the full absolute path --
+            VOLUME_MAP="${VOLUME_MAP} -v ${LOCAL_VOLUME_DIR}/$vol:$vol"
+        else
+            # -- default sub-directory (without prefix absolute path) --
+            VOLUME_MAP="${VOLUME_MAP} -v ${LOCAL_VOLUME_DIR}/$vol:${DOCKER_VOLUME_DIR}/$vol"
+        fi
+        mkdir -p ${LOCAL_VOLUME_DIR}/$vol
+        ls -al ${LOCAL_VOLUME_DIR}/$vol
+    done
 }
 
-# ref: http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/
+#### ---- Generate Volumes Mapping ----
+generateVolumeMapping
+echo ${VOLUME_MAP}
 
-#### ---- Need to change this when change version ---- ####
-INTELLIJ_INSTALL_FOLDER=`cat ./docker.env|grep IDEA_PROPERTIES|cut -d'=' -f2|sed s#~/.##`
-IDEA_PRODUCT_NAME="ideaIC2017"
-IDEA_PRODUCT_VERSION="2"
-IDEA_DEFAULT_CACHE_FOLDER=".${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
-
-##################################################
-#### ---- Mandatory: Change those ----
-##################################################
-imageTag=${1:-"openkbs/intellij-docker"}
-
-PACKAGE=`echo ${imageTag##*/}|tr "/\-: " "_"`
-
-docker_volume_data1=/home/developer/.${INTELLIJ_INSTALL_FOLDER}
-docker_volume_data2=/home/developer/workspace
-local_docker_data1=${baseDataFolder}/${PACKAGE}/.${INTELLIJ_INSTALL_FOLDER}
-local_docker_data2=${baseDataFolder}/${PACKAGE}/workspace
-
-#### ---- local data folders on the host ----
-#mkdir -p ${local_docker_data1}
-mkdir -p ${local_docker_data2}
-
-#### ---- ports mapping ----
-docker_port1=
-local_docker_port1=
-
-##################################################
+###################################################
 #### ---- Mostly, you don't need change below ----
-##################################################
+###################################################
 # Reference: https://docs.docker.com/engine/userguide/containers/dockerimages/
 
 #instanceName=my-${1:-${imageTag%/*}}_$RANDOM
 #instanceName=my-${1:-${imageTag##*/}}
+## -- transform '-' and space to '_' 
 instanceName=`echo ${imageTag}|tr "/\-: " "_"`
 
 #### ----- RUN -------
 echo "To run: for example"
-echo "docker run -d --name ${instanceName} -v ${docker_data}:/${docker_volume_data} ${imageTag}"
+#echo "docker run -d --name ${instanceName} -v ${docker_data}:/${docker_volume_data} ${imageTag}"
 echo "---------------------------------------------"
 echo "---- Starting a Container for ${imageTag}"
 echo "---------------------------------------------"
@@ -67,7 +75,7 @@ docker run -ti --rm \
     --name=${instanceName} \
     -e DISPLAY=$DISPLAY \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -v ${local_docker_data2}:${docker_volume_data2} \
+    ${VOLUME_MAP} \
     ${imageTag}
     
 echo ">>> Docker Status"
@@ -76,6 +84,4 @@ echo "-----------------------------------------------"
 echo ">>> Docker Shell into Container `docker ps -lqa`"
 echo "docker exec -it ${instanceName} /bin/bash"
 
-#### ---- Display IP:Port URL ----
-#displayPortainerURL ${local_docker_port1}
 

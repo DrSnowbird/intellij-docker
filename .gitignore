@@ -1,2 +1,6 @@
 *.class
 *.log
+*.tgz
+*.zip
+*.deb
+*.tar.gz

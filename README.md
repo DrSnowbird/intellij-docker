@@ -1,8 +1,8 @@
 # Docker-based Netbeans
 * Intellij IDE in a Docker container
-* SCALA_VERSION=2.12.2
-* SBT_VERSION=0.13.15
-* INTELLIJ_VERSION=ideaIC-2017.2.5
+* SCALA VERSION=2.12.2
+* SBT VERSION=0.13.15
+* INTELLIJ VERSION=ideaIC-2017.2.5
 
 ## Requirements
 * Docker 1.13.1+ 
@@ -24,13 +24,13 @@ Intellij configurations are kept on `$HOME/.ideaIC-2017.2` inside the container,
 want to keep them around after you close it, you'll need to share it with your
 host.
 
-For example:
+For example: (Version might be different - use run.sh instead)
 
 ```sh
 docker run -ti --rm \
            -e DISPLAY=$DISPLAY \
            -v /tmp/.X11-unix:/tmp/.X11-unix \
-           -v $HOME/.ideaIC-2017.2:/home/developer/.ideaIC-2017.2 \
+           -v $HOME/.ideaIC-2017.3:/home/developer/.ideaIC-2017.3 \
            -v `pwd`:/home/developer/workspace \
            openkbs/intellij-docker
 ```
