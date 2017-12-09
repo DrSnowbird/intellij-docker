@@ -6,7 +6,7 @@
 
 imageTag=openkbs/intellij-docker
 
-docker build -t ${imageTag} \
+docker build --rm -t ${imageTag} \
 	-f Dockerfile .
 
 echo "----> To run in interactive mode: "
