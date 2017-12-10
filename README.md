@@ -1,8 +1,6 @@
-# Docker-based Netbeans
-* Intellij IDE in a Docker container
-* SCALA VERSION=2.12.2
-* SBT VERSION=0.13.15
-* INTELLIJ VERSION=ideaIC-2017.2.5
+# Intellij IDE in a Docker container
+
+* INTELLIJ VERSION=ideaIC-2017.3
 
 ## Requirements
 * Docker 1.13.1+ 
