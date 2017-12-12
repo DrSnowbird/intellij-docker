@@ -44,5 +44,11 @@ used by the base image has an user and group ids set to `1000`, two options:
 ```
 try again.
 
+
+## Other docker-based IDE
+* [openkbs/eclipse-oxygen-docker](https://hub.docker.com/r/openkbs/eclipse-oxygen-docker/)
+* [openkbs/netbeans](https://hub.docker.com/r/openkbs/netbeans/)
+* [openkbs/scala-ide-docker](https://hub.docker.com/r/openkbs/scala-ide-docker/)
+
 ## Reference
 * https://download.jetbrains.com/idea
