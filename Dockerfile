@@ -68,6 +68,7 @@ ENV HOME=/home/${USER_NAME}
 
 WORKDIR ${HOME}
 
+# https://download.jetbrains.com/idea/ideaIC-2017.3.3-no-jdk.tar.gz
 # https://download.jetbrains.com/idea/ideaIC-2017.3-no-jdk.tar.gz
 ENV INTELLIJ_IDE_TAR=${INTELLIJ_VERSION}-no-jdk.tar.gz
 ENV INTELLIJ_IDE_DOWNLOAD_FOLDER=idea
