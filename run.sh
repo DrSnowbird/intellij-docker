@@ -21,24 +21,26 @@ imageTag=${1:-"${ORGANIZATION}/${DOCKER_IMAGE_REPO}"}
 PACKAGE="${imageTag##*/}"
 
 ###################################################
-#### ---- (DEPRECATED but still supported)    -----
-#### ---- Volumes to be mapped (change this!) -----
+#### ---- Intellj configuration ----
 ###################################################
 # (examples)
-# IDEA_PRODUCT_NAME="IdeaIC2017"
-# IDEA_PRODUCT_VERSION="3"
-# IDEA_INSTALL_DIR="${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
-# IDEA_CONFIG_DIR=".${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
-# IDEA_PROJECT_DIR="IdeaProjects"
-# VOLUMES_LIST="${IDEA_CONFIG_DIR} ${IDEA_PROJECT_DIR}"
+IDEA_PRODUCT_NAME="IdeaIC2017"
+IDEA_PRODUCT_VERSION="3"
+IDEA_INSTALL_DIR="${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
+IDEA_CONFIG_DIR=".${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
+IDEA_PROJECT_DIR="IdeaProjects"
 
-# ---------------------------
-# Variable: VOLUMES_LIST
-# (NEW: use docker.env with "#VOLUMES_LIST=data workspace" to define entries)
-# ---------------------------
+###################################################
+## Variable: VOLUMES_LIST
+## ---- (DEPRECATED but still supported)    -----
+## ---- Volumes to be mapped (change this!) -----
+## (NEW: use docker.env with "#VOLUMES_LIST=data workspace" to define entries)
+## ---------------------------
 ## -- If you defined locally here, 
 ##    then the definitions of volumes map in "docker.env" will be ignored.
+###################################################
 # VOLUMES_LIST="data workspace"
+VOLUMES_LIST="${IDEA_CONFIG_DIR} ${IDEA_PROJECT_DIR}"
 
 # ---------------------------
 # OPTIONAL Variable: PORT PAIR
@@ -151,17 +153,21 @@ echo "---------------------------------------------"
 echo "---- Starting a Container for ${imageTag}"
 echo "---------------------------------------------"
 
-echo ${DISPLAY}
-xhost +SI:localuser:$(id -un) 
-docker run -it \
+#### ----- RUN -------
+echo "To run: for example"
+#echo "docker run -d --name ${instanceName} -v ${docker_data}:/${docker_volume_data} ${imageTag}"
+echo "---------------------------------------------"
+echo "---- Starting a Container for ${imageTag}"
+echo "---------------------------------------------"
+DISPLAY=${MY_IP}:0 \
+docker run -ti --rm \
     --name=${instanceName} \
-    --restart=always \
     ${privilegedString} \
-    --user=$(id -u):$(id -g) \
     -e DISPLAY=$DISPLAY \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     ${VOLUME_MAP} \
     ${PORT_MAP} \
     ${imageTag}
-
-
+    
+echo ">>> Docker Status"
+docker ps -a | grep "${instanceName}"

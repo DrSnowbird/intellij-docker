@@ -2,7 +2,7 @@ FROM openkbs/jdk-mvn-py3-x11
 
 MAINTAINER DrSnowbird "DrSnowbird@openkbs.org"
 
-ARG INTELLIJ_VERSION=${INTELLIJ_VERSION:-"ideaIC-2017.3"}
+ARG INTELLIJ_VERSION=${INTELLIJ_VERSION:-ideaIC-2017.3.3}
 ENV INTELLIJ_VERSION=${INTELLIJ_VERSION}
 
 ENV IDEA_PRODUCT_NAME="IdeaIC2017"
@@ -12,8 +12,8 @@ ENV IDEA_INSTALL_DIR="${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
 ENV IDEA_CONFIG_DIR=".${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
 ENV IDEA_PROJECT_DIR="IdeaProjects"
 
-ENV SCALA_VERSION=2.12.4
-ENV SBT_VERSION=1.0.4
+#ENV SCALA_VERSION=2.12.4
+#ENV SBT_VERSION=1.0.4
 
 ## ---- USER_NAME is defined in parent image: 
 ## ---- openkbs/jre-mvn-py3-x11 already ----
@@ -70,11 +70,11 @@ WORKDIR ${HOME}
 
 # https://download.jetbrains.com/idea/ideaIC-2017.3.3-no-jdk.tar.gz
 # https://download.jetbrains.com/idea/ideaIC-2017.3-no-jdk.tar.gz
-ENV INTELLIJ_IDE_TAR=${INTELLIJ_VERSION}-no-jdk.tar.gz
-ENV INTELLIJ_IDE_DOWNLOAD_FOLDER=idea
+ARG INTELLIJ_IDE_TAR=${INTELLIJ_VERSION}-no-jdk.tar.gz
+ARG INTELLIJ_IDE_DOWNLOAD_FOLDER=idea
 
 ## -- (Release build) --
-RUN wget -c https://download.jetbrains.com/${INTELLIJ_IDE_DOWNLOAD_FOLDER}/${INTELLIJ_IDE_TAR} && \
+RUN wget https://download.jetbrains.com/${INTELLIJ_IDE_DOWNLOAD_FOLDER}/${INTELLIJ_IDE_TAR} && \
     tar xvf ${INTELLIJ_IDE_TAR} && \
     mv idea-IC-* ${IDEA_INSTALL_DIR}  && \
     rm ${INTELLIJ_IDE_TAR}
