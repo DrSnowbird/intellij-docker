@@ -24,8 +24,8 @@ PACKAGE="${imageTag##*/}"
 #### ---- Intellj configuration ----
 ###################################################
 # (examples)
-IDEA_PRODUCT_NAME="IdeaIC2017"
-IDEA_PRODUCT_VERSION="3"
+IDEA_PRODUCT_NAME="IdeaIC2018"
+IDEA_PRODUCT_VERSION="1"
 IDEA_INSTALL_DIR="${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
 IDEA_CONFIG_DIR=".${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
 IDEA_PROJECT_DIR="IdeaProjects"

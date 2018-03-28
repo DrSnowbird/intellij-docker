@@ -69,7 +69,7 @@ ENV HOME=/home/${USER_NAME}
 WORKDIR ${HOME}
 
 # https://download.jetbrains.com/idea/ideaIC-2017.3.3-no-jdk.tar.gz
-# https://download.jetbrains.com/idea/ideaIC-2017.3-no-jdk.tar.gz
+# https://download.jetbrains.com/idea/ideaIC-2018.1-no-jdk.tar.gz
 ARG INTELLIJ_IDE_TAR=${INTELLIJ_VERSION}-no-jdk.tar.gz
 ARG INTELLIJ_IDE_DOWNLOAD_FOLDER=idea
 
@@ -88,7 +88,7 @@ RUN wget https://download.jetbrains.com/${INTELLIJ_IDE_DOWNLOAD_FOLDER}/${INTELL
 RUN mkdir -p \
     ${HOME}/${IDEA_PROJECT_DIR} \
     ${HOME}/${IDEA_CONFIG_DIR} && \
-    chown ${USER_NAME}:${USER_NAME} ${HOME}
+    chown -R ${USER_NAME}:${USER_NAME} ${HOME}
     
 VOLUME ${HOME}/${IDEA_PROJECT_DIR}
 VOLUME ${HOME}/${IDEA_CONFIG_DIR}
