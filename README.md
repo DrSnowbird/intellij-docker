@@ -1,10 +1,10 @@
 # Intellij IDE in a Docker container
 
-* INTELLIJ VERSION=ideaIC-2017.3
+* INTELLIJ VERSION=ideaIC-2018.1
 
 ## Requirements
-* Docker 1.13.1+ 
-* An X11 socket
+* Docker 1.13.1+ or latest 17.12.1-ce 
+* An X11 server socket enabled (e.g. xhost+)
 
 ## Build
 ```
