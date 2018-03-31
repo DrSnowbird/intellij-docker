@@ -7,3 +7,7 @@
 *.swp
 *.save
 fuse*
+
+.cache
+.java
+.IdeaIC2018.1
