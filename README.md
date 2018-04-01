@@ -37,8 +37,7 @@ docker run -ti --rm \
 ```
 
 # Display X11 Issue
-## Help! I started the container but I don't see the X11 screen
-
+## X11 Screen failed to show up
 You might have an issue with the X11 socket permissions since the default user
 used by the base image has an user and group ids set to `1000`, two options:
 * Create your own base image with the appropriate ids or 
