@@ -72,8 +72,10 @@ ARG INTELLIJ_IDE_TAR=${INTELLIJ_VERSION}-no-jdk.tar.gz
 ARG INTELLIJ_IDE_DOWNLOAD_FOLDER=idea
 
 ## -- (Release build) --
-RUN wget https://download.jetbrains.com/${INTELLIJ_IDE_DOWNLOAD_FOLDER}/${INTELLIJ_IDE_TAR} && \
-    tar xvf ${INTELLIJ_IDE_TAR} && \
+#RUN wget https://download.jetbrains.com/${INTELLIJ_IDE_DOWNLOAD_FOLDER}/${INTELLIJ_IDE_TAR} && \
+#    tar xvf ${INTELLIJ_IDE_TAR} && \
+RUN wget https://download.jetbrains.com/idea/ideaIC-2018.1-no-jdk.tar.gz && \
+    tar xvf ideaIC-2018.1-no-jdk.tar.gz && \
     mv idea-IC-* ${IDEA_INSTALL_DIR}  && \
     rm ${INTELLIJ_IDE_TAR}
 
