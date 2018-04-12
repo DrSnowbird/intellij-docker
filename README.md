@@ -20,7 +20,7 @@
 
 ## Making plugins persist between sessions
 
-Intellij configurations are kept on `$HOME/.ideaIC-2017.2` inside the container, so if you
+Intellij configurations are kept on `$HOME/.ideaIC-2018.1` inside the container, so if you
 want to keep them around after you close it, you'll need to share it with your
 host.
 
@@ -47,10 +47,13 @@ used by the base image has an user and group ids set to `1000`, two options:
 try again.
 
 
-## Other docker-based IDE
+## Similar docker-based IDE
 * [openkbs/eclipse-oxygen-docker](https://hub.docker.com/r/openkbs/eclipse-oxygen-docker/)
 * [openkbs/netbeans](https://hub.docker.com/r/openkbs/netbeans/)
 * [openkbs/scala-ide-docker](https://hub.docker.com/r/openkbs/scala-ide-docker/)
-
+* [openkbs/pycharm-docker](https://hub.docker.com/r/openkbs/pycharm-docker/)
+* [openkbs/webstorm-docker](https://hub.docker.com/r/openkbs/webstorm-docker/)
+* [openkbs/intellj-docker](https://hub.docker.com/r/openkbs/intellij-docker/)
 ## Reference
 * https://download.jetbrains.com/idea
+* https://www.jetbrains.com/idea/
