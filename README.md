@@ -1,5 +1,7 @@
 # Intellij IDE in a Docker container
 
+[![](https://images.microbadger.com/badges/image/openkbs/intellij-docker.svg)](https://microbadger.com/images/openkbs/intellij-docker "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/version/openkbs/intellij-docker.svg)](https://microbadger.com/images/openkbs/intellij-docker "Get your own version badge on microbadger.com")
 * INTELLIJ VERSION=ideaIC-2018.1
 
 ## Requirements
@@ -28,7 +30,7 @@ For example: (Version might be different - use run.sh instead)
 docker run -ti --rm \
            -e DISPLAY=$DISPLAY \
            -v /tmp/.X11-unix:/tmp/.X11-unix \
-           -v $HOME/.ideaIC-2017.3:/home/developer/.ideaIC-2017.3 \
+           -v $HOME/.ideaIC-2018.1:/home/developer/.ideaIC-2018.1 \
            -v `pwd`:/home/developer/workspace \
            openkbs/intellij-docker
 ```
