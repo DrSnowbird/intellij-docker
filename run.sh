@@ -40,7 +40,7 @@ IDEA_PROJECT_DIR="IdeaProjects"
 ##    then the definitions of volumes map in "docker.env" will be ignored.
 ###################################################
 # VOLUMES_LIST="data workspace"
-VOLUMES_LIST="${IDEA_CONFIG_DIR} ${IDEA_PROJECT_DIR}"
+#VOLUMES_LIST="${IDEA_CONFIG_DIR} ${IDEA_PROJECT_DIR}"
 
 # ---------------------------
 # OPTIONAL Variable: PORT PAIR
@@ -165,6 +165,7 @@ docker run -ti --rm \
     ${privilegedString} \
     -e DISPLAY=$DISPLAY \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
+    --user $(id -u $USER) \
     ${VOLUME_MAP} \
     ${PORT_MAP} \
     ${imageTag}

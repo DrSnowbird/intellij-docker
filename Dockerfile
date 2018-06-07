@@ -2,12 +2,16 @@ FROM openkbs/jdk-mvn-py3-x11
 
 MAINTAINER DrSnowbird "DrSnowbird@openkbs.org"
 
-ARG INTELLIJ_VERSION=${INTELLIJ_VERSION:-ideaIC-2017.3.4}
+ARG INTELLIJ_VERSION=${INTELLIJ_VERSION:-ideaIC-2018.1.4}
 ENV INTELLIJ_VERSION=${INTELLIJ_VERSION}
 
-ENV IDEA_PRODUCT_NAME="IdeaIC2017"
-ENV IDEA_PRODUCT_VERSION="3"
+ARG IDEA_PRODUCT_NAME=${IDEA_PRODUCT_NAME:-IdeaIC2018}
+ENV IDEA_PRODUCT_NAME="IdeaIC2018"
 
+ARG IDEA_PRODUCT_VERSION=${IDEA_PRODUCT_VERSION:-1}
+ENV IDEA_PRODUCT_VERSION="1"
+
+## -- derived vars ---
 ENV IDEA_INSTALL_DIR="${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
 ENV IDEA_CONFIG_DIR=".${IDEA_PRODUCT_NAME}.${IDEA_PRODUCT_VERSION}"
 ENV IDEA_PROJECT_DIR="IdeaProjects"
@@ -70,6 +74,7 @@ WORKDIR ${HOME}
 
 # https://download.jetbrains.com/idea/ideaIC-2017.3.3-no-jdk.tar.gz
 # https://download.jetbrains.com/idea/ideaIC-2018.1-no-jdk.tar.gz
+# https://download.jetbrains.com/idea/ideaIC-2018.1.4-no-jdk.tar.gz
 ARG INTELLIJ_IDE_TAR=${INTELLIJ_VERSION}-no-jdk.tar.gz
 ARG INTELLIJ_IDE_DOWNLOAD_FOLDER=idea
 
@@ -78,6 +83,9 @@ RUN wget https://download.jetbrains.com/${INTELLIJ_IDE_DOWNLOAD_FOLDER}/${INTELL
     tar xvf ${INTELLIJ_IDE_TAR} && \
     mv idea-IC-* ${IDEA_INSTALL_DIR}  && \
     rm ${INTELLIJ_IDE_TAR}
+
+## -- (Key Chain lib Intellij IDE complains needing this) --
+#RUN sudo apt-get install libsecret-1-0 gnome-keyring -y
 
 ## -- (Local build) --
 #COPY ${INTELLIJ_IDE_TAR} ./
@@ -89,7 +97,7 @@ RUN mkdir -p \
     ${HOME}/${IDEA_PROJECT_DIR} \
     ${HOME}/${IDEA_CONFIG_DIR} && \
     chown -R ${USER_NAME}:${USER_NAME} ${HOME}
-    
+
 VOLUME ${HOME}/${IDEA_PROJECT_DIR}
 VOLUME ${HOME}/${IDEA_CONFIG_DIR}
     

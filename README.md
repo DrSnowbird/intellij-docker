@@ -1,26 +1,35 @@
 # Intellij IDE in a Docker container
 
-[![](https://images.microbadger.com/badges/image/openkbs/intellij-docker.svg)](https://microbadger.com/images/openkbs/intellij-docker "Get your own image badge on microbadger.com")
-[![](https://images.microbadger.com/badges/version/openkbs/intellij-docker.svg)](https://microbadger.com/images/openkbs/intellij-docker "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/openkbs/intellij-docker.svg)](https://microbadger.com/images/openkbs/intellij-docker "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/openkbs/intellij-docker.svg)](https://microbadger.com/images/openkbs/intellij-docker "Get your own version badge on microbadger.com")
 * INTELLIJ VERSION=ideaIC-2018.1
 
-## Requirements
+# Requirements
 * Docker 1.13.1+ or latest 17.12.1-ce 
 * An X11 server socket enabled (e.g. xhost+)
 
-## Build
+# Run (Recommended for easy startup)
+```
+./run.sh
+```
+## Guide: Install Scala
+During starting up Intellij first time, one of the options will allow you to install "Scala". 
+Remember to install that. If not, you still can add inside the Intellij IDE later.
+```
+firefox ./guide/Intellij-guide-install-Scala-option.png
+```
+
+# Stop
+```
+./stop.sh
+```
+
+# Build (Optional)
 ```
 ./build.sh
 ```
 
-## Run
-```
-./run.sh
-```
-
-## Making plugins persist between sessions
+# Configure - (Optional) Making plugins persist between sessions
 If you use "./run.sh", you can ignore this section!
-
 Intellij configurations are kept on `$HOME/.ideaIC-2018.1` inside the container, so if you
 want to keep them around after you close it, you'll need to share it with your
 host.
@@ -53,7 +62,7 @@ More resource in X11 display of Eclipse on your host machine's OS, please see
 * [X11 Display with Xhost](http://www.ethicalhackx.com/fix-gtk-warning-cannot-open-display/)
 
 # Other possible Issues
-You might see the warning message in the launching xterm console like below, you can just ignore it. I googles around and some blogs just suggested to ignore since the Eclipse IDE still functional ok.
+You might see the warning message in the launching xterm console like below, you can just ignore it. I googles around and some blogs just suggested to ignore since the IDE still functional ok.
 ```
 ** (eclipse:1): WARNING **: Couldn't connect to accessibility bus: Failed to connect to socket /tmp/dbus-wrKH8o5rny: Connection refused
 
