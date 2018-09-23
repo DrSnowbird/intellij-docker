@@ -44,8 +44,10 @@ docker run -ti --rm \
            -v `pwd`:/home/developer/workspace \
            openkbs/intellij-docker
 ```
-## Similar docker-based IDE
-* [openkbs/eclipse-oxygen-docker](https://hub.docker.com/r/openkbs/eclipse-oxygen-docker/)
+## More docker-based IDE
+* [openkbs/eclipse-photon-docker](https://hub.docker.com/r/openkbs/eclipse-photon-docker/)
+* [openkbs/papyrus-sysml-docker](https://hub.docker.com/r/openkbs/papyrus-sysml-docker/)
+* [openkbs/netbeans9-docker](https://hub.docker.com/r/openkbs/netbeans9-docker/)
 * [openkbs/netbeans](https://hub.docker.com/r/openkbs/netbeans/)
 * [openkbs/scala-ide-docker](https://hub.docker.com/r/openkbs/scala-ide-docker/)
 * [openkbs/pycharm-docker](https://hub.docker.com/r/openkbs/pycharm-docker/)
