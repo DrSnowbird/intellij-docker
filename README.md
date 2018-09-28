@@ -1,7 +1,7 @@
 # Intellij IDE in a Docker container
 
 [![](https://images.microbadger.com/badges/image/openkbs/intellij-docker.svg)](https://microbadger.com/images/openkbs/intellij-docker "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/openkbs/intellij-docker.svg)](https://microbadger.com/images/openkbs/intellij-docker "Get your own version badge on microbadger.com")
-* INTELLIJ VERSION=ideaIC-2018.1
+* INTELLIJ VERSION=ideaIC-2018.2
 
 # Requirements
 * Docker 1.13.1+ or latest 17.12.1-ce 
@@ -58,9 +58,9 @@ docker run -ti --rm \
 * [openkbs/webstorm-docker](https://hub.docker.com/r/openkbs/webstorm-docker/)
 
 # See Also - Docker-based SQL GUI
-* [Sqlectron SQL GUI at openkbs/sqlectron-docker](https://hub.docker.com/r/openkbs/sqlectron-docker/)
 * [Mysql-Workbench at openkbs/mysql-workbench](https://hub.docker.com/r/openkbs/mysql-workbench/)
 * [PgAdmin4 for PostgreSQL at openkbs/pgadmin-docker](https://hub.docker.com/r/openkbs/pgadmin-docker/)
+* [Sqlectron SQL GUI at openkbs/sqlectron-docker](https://hub.docker.com/r/openkbs/sqlectron-docker/)
 
 # Reference
 * https://download.jetbrains.com/idea
