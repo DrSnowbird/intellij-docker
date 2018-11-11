@@ -1,9 +1,10 @@
 version: '3' 
 services:
-  docker-nebteans:
+  intellij-docker:
     image: openkbs/intellij-docker
     build:
-      context: ./Dockerfile
+      context: .
+      dockerfile: Dockerfile
     container_name: docker-intellij-docker
     environment:
       - USER_ID=${USER_ID:-1000}
