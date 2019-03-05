@@ -2,7 +2,7 @@ FROM openkbs/jdk-mvn-py3-x11
 
 MAINTAINER DrSnowbird "DrSnowbird@openkbs.org"
 
-ARG INTELLIJ_VERSION=${INTELLIJ_VERSION:-ideaIC-2018.3.3}
+ARG INTELLIJ_VERSION=${INTELLIJ_VERSION:-ideaIC-2018.3.5}
 ENV INTELLIJ_VERSION=${INTELLIJ_VERSION}
 
 ARG IDEA_PRODUCT_NAME=${IDEA_PRODUCT_NAME:-IdeaIC2018}
@@ -75,6 +75,7 @@ USER ${USER_NAME}
 WORKDIR ${HOME}
 
 # https://download.jetbrains.com/idea/ideaIC-2018.3.3-no-jdk.tar.gz
+# https://download.jetbrains.com/idea/ideaIC-2018.3.5.tar.gz
 ARG INTELLIJ_IDE_TAR=${INTELLIJ_VERSION}-no-jdk.tar.gz
 ARG INTELLIJ_IDE_DOWNLOAD_FOLDER=idea
 
