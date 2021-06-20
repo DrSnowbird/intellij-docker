@@ -15,10 +15,10 @@ services:
       - GROUP_ID=${GROUP_ID:-1000}
       # - APP_HOME=${APP_HOME:-/home/developer/app}
       # - APP_MAIN=${APP_MAIN:-setup.sh}
-      - DOCKER_HOST_IP=${DOCKER_HOST_IP:-192.168.0.160}
-      - DOCKER_HOST_NAME=${DOCKER_HOST_NAME:-solar01}
+      - DOCKER_HOST_IP=${DOCKER_HOST_IP:-127.0.0.1}
+      - DOCKER_HOST_NAME=${DOCKER_HOST_NAME:-localhost}
       # ==== X11 Use only ====
-      - DISPLAY=$DISPLAY
+      - DISPLAY=${DISPLAY:-localhost:0}
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
       # ==== vnc/no-vnc ====
       #- WINDOW_MANAGER=xfce 
@@ -35,17 +35,13 @@ services:
       ## ==== Use $HOME/data-docker as base directory: ====
       #- $HOME/data-docker/intellij-docker/data:/home/developer/data
       #- $HOME/data-docker/intellij-docker/workspace:/home/developer/workspace
-      #- $HOME/data-docker/intellij-docker/IdeaProjects:/home/developer/IdeaProjects
-      #- $HOME/data-docker/intellij-docker/.IdeaIC2020.2:/home/developer/.IdeaIC2020.2
-      #- $HOME/data-docker/intellij-docker/.java:/home/developer/.java
+      #- $HOME/data-docker/intellij-docker/.cache:/home/developer/.cache
       #
       ## ==== Use current directory as root for mapping Volumes ====
       ## (You need to manually create those child directory: ./data, ./workspace, and others)
       - ./data:/home/developer/data
       - ./workspace:/home/developer/workspace
-      - ./IdeaProjects:/home/developer/IdeaProjects
-      - ./.IdeaIC2020.2:/home/developer/.IdeaIC2020.2
-      - ./.java:/home/developer/.java
+      - ./.cache:/home/developer/.cache
       
     ## -------------------------------
     ## -- Change to your specific port

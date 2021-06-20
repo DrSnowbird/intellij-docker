@@ -8,7 +8,6 @@
 *.save
 fuse*
 
-.cache
 .java
 .IdeaIC2018.1
 .IdeaIC2020.2
